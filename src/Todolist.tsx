@@ -4,6 +4,8 @@ import {FilterValuesType, TasksStateType, TaskType} from "./App";
 import s from "./Todolist.module.css"
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
+import {Button, IconButton} from "@material-ui/core";
+import {Delete} from "@material-ui/icons";
 
 interface PropsType {
     title: string,
@@ -39,8 +41,12 @@ function Todolist(props: PropsType) {
 
 
     return <div>
+        <div className={s.titleTodoWrapper}>
         <h3><EditableSpan title={props.title}  todoID={props.id} onChange={props.changeTitleTodo} id={null}/></h3>
-        <span><button onClick={() => props.removeTodolist(props.id)}>X</button></span>
+        <span><IconButton onClick={() => props.removeTodolist(props.id)}>
+            <Delete/>
+        </IconButton></span>
+        </div>
         <AddItemForm addItem={addTask}/>
         <ul>
             {props.tasks.map((t: any) => {
@@ -55,19 +61,21 @@ function Todolist(props: PropsType) {
                                                                                         checked={t.isDone}
                                                                                         onChange={onChangeHandler}/>
                     <EditableSpan onChange={props.changeTitle} title={t.title}  id={t.id} todoID={props.id}/>
-                    <button onClick={onRemoveClickYandler}>X</button>
+                    <IconButton onClick={onRemoveClickYandler}>
+                        <Delete/>
+                    </IconButton>
                 </li>
             })}
         </ul>
         <div>
-            <button onClick={onAllClickHandler} className={props.filter === "all" ? s.activeFilter : s.filter}>All
-            </button>
-            <button onClick={onActiveClickHandler}
+            <Button onClick={onAllClickHandler} className={props.filter === "all" ? s.activeFilter : s.filter}>All
+            </Button>
+            <Button onClick={onActiveClickHandler}
                     className={props.filter === "active" ? s.activeFilter : s.filter}>Active
-            </button>
-            <button onClick={onCompletedClickHandler}
+            </Button>
+            <Button onClick={onCompletedClickHandler}
                     className={props.filter === "completed" ? s.activeFilter : s.filter}>Completed
-            </button>
+            </Button>
         </div>
     </div>
 }

@@ -39,7 +39,7 @@ export function AddItemForm(props: AddItemFormProps) {
             <input value={title} onChange={onChangeHandler} onKeyPress={onKeyPressHandler}
                    className={error ? s.error : s.right}/>
 
-            <Button onClick={addItem}>+</Button>
+            <Button variant="contained" color="primary" onClick={addItem}>+</Button>
             {error && <div className={s.errorMessage}>{error}</div>}
         </div>
     )
