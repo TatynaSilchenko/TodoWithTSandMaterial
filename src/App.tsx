@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
-import './AppCopy.css';
+// import './AppCopy.css';
 import Todolist from "./Todolist";
 import {v1} from 'uuid';
 import {AddItemForm} from "./AddItemForm";
+import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
+import Menu from '@material-ui/icons/Menu'
 
 export type FilterValuesType = "active" | "all" | "completed"
 
@@ -113,37 +115,60 @@ function App() {
 
     return (
         <div className="App">
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton edge="start"  color="inherit" aria-label="menu">
+                        <Menu />
+                    </IconButton>
+                    <Typography variant="h6" >
+                        News
+                    </Typography>
+                    <Button color="inherit">Login</Button>
+                </Toolbar>
+            </AppBar>
+            <Container fixed>
+                <Grid container style={{padding:'20px'}}>
+                <AddItemForm addItem={addTodolist}/>
+                </Grid>
+                <Grid container spacing={5}>
+                {todolists.map(t =>{
+                    let tasksForTodoList = tasks[t.id];
+                    if (t.filter === "active") {
+                        tasksForTodoList = tasksForTodoList.filter(t => !t.isDone)
+                    }
+                    if (t.filter === "completed") {
+                        tasksForTodoList = tasksForTodoList.filter(t => !!t.isDone)
+                    }
+                    return <Grid item>
+                        <Paper style={{padding:'10px'}}>
+                        <Todolist id={t.id} title={t.title} key={t.id} addNewTask={addNewTask} tasks={tasksForTodoList}
+                                     removeTask={removeTask}
+                                     setfilter={setFilter} changeStatus={changeStatus} filter={t.filter}
+                                     removeTodolist={removeTodolist} changeTitle={changeTitle} changeTitleTodo={changeTitleTodo}
 
-            <AddItemForm addItem={addTodolist}/>
+                    />
+                        </Paper>
+                    </Grid>})}
+                </Grid>
+            </Container>
 
-            {todolists.map(t =>{
-                let tasksForTodoList = tasks[t.id];
-                if (t.filter === "active") {
-                    tasksForTodoList = tasksForTodoList.filter(t => !t.isDone)
-                }
-                if (t.filter === "completed") {
-                    tasksForTodoList = tasksForTodoList.filter(t => !!t.isDone)
-                }
-                return <Todolist id={t.id} title={t.title} key={t.id} addNewTask={addNewTask} tasks={tasksForTodoList}
-                                          removeTask={removeTask}
-                                          setfilter={setFilter} changeStatus={changeStatus} filter={t.filter}
-                                 removeTodolist={removeTodolist} changeTitle={changeTitle} changeTitleTodo={changeTitleTodo}
 
-                />})}
 
-            <div id="openModal" className="modal">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h3 className="modal-title">Название</h3>
-                            <a href="#close" title="Close" className="close">×</a>
-                        </div>
-                        <div className="modal-body">
-                            <p>Содержимое модального окна...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                {/*модальное окно*/}
+
+            {/*<div id="openModal" className="modal">*/}
+            {/*    <div className="modal-dialog">*/}
+            {/*        <div className="modal-content">*/}
+            {/*            <div className="modal-header">*/}
+            {/*                <h3 className="modal-title">Название</h3>*/}
+            {/*                <a href="#close" title="Close" className="close">×</a>*/}
+            {/*            </div>*/}
+            {/*            <div className="modal-body">*/}
+            {/*                <p>Содержимое модального окна...</p>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
 
         </div>
     );
