@@ -1,6 +1,7 @@
 import {v1} from 'uuid';
-import {TodolistType} from '../App';
+import {TasksStateType, TodolistType} from '../App';
 import {AddTodolistAc, ChangeTodolistTitleAc, RemoveTodolistAc, todolistReducer} from "./todolist-reducer";
+import {tasksReducer} from "./tasks-reducer";
 
 test('correct todolist should be removed', () => {
     let todolistId1 = v1();
@@ -50,5 +51,7 @@ test('correct todolist should change its name', () => {
     expect(endState[0].title).toBe("What to learn");
     expect(endState[1].title).toBe(newTodolistTitle);
 });
+
+
 
 
