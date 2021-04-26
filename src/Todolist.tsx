@@ -17,8 +17,8 @@ interface PropsType {
     filter: string,
     id: string,
     removeTodolist: (id: string) => void,
-    changeTitle:(id:string|null,title:string,todoID:string)=>void,
-    changeTitleTodo:(id:string|null, title:string,todoID: string)=>void
+    changeTitle:(title:string,todoID:string,id:string|null)=>void,
+    changeTitleTodo:(id:string, title:string)=>void
 }
 
 function Todolist(props: PropsType) {
@@ -42,7 +42,9 @@ function Todolist(props: PropsType) {
 
     return <div>
         <div className={s.titleTodoWrapper}>
-        <h3><EditableSpan title={props.title}  todoID={props.id} onChange={props.changeTitleTodo} id={null}/></h3>
+        <h3><EditableSpan title={props.title}  todoID={props.id}
+                          onChangeTodo={props.changeTitleTodo}
+                          id={null}/></h3>
         <span><IconButton onClick={() => props.removeTodolist(props.id)}>
             <Delete/>
         </IconButton></span>
@@ -60,7 +62,9 @@ function Todolist(props: PropsType) {
                 return <div key={t.id} className={t.isDone ? s.isDone : s.active}><Checkbox color={'primary'}
                                                                                         checked={t.isDone}
                                                                                         onChange={onChangeHandler}/>
-                    <EditableSpan onChange={props.changeTitle} title={t.title}  id={t.id} todoID={props.id}/>
+                    <EditableSpan
+                        onChange={props.changeTitle}
+                        title={t.title}  id={t.id} todoID={props.id}/>
                     <IconButton onClick={onRemoveClickYandler}>
                         <Delete/>
                     </IconButton>

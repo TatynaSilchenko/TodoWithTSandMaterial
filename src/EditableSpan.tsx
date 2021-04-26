@@ -5,7 +5,8 @@ import {TextField} from "@material-ui/core";
 
 interface EditableSpanProps {
     title: string
-    onChange: ( id:string|null, title: string, todoID:string) => void,
+    onChange?: ( title: string, todoID:string, id:string|null) => void,
+    onChangeTodo?: ( title: string, todoID:string) => void,
     id:string|null,
     todoID:string
 }
@@ -25,7 +26,8 @@ export function EditableSpan({title,id,todoID, ...restProps}: EditableSpanProps)
 
     const activateViewMode = () => {
         setEditMode(false)
-        restProps.onChange(id,newTitle,todoID)
+restProps.onChangeTodo&&restProps.onChangeTodo(todoID,newTitle)
+        restProps.onChange&&restProps.onChange(newTitle,todoID,id)
     }
     const activateEditMode = () => {
         setEditMode(true)

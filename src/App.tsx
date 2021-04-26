@@ -98,7 +98,7 @@ function App() {
         }
         setTasks({...tasks})
     }
-    const changeTitleTodo = ( id: string|null, title: string,todoID:string) => {
+    const changeTitleTodo = (title: string,todoID:string, id: string|null) => {
         let currentTodolist = todolists.find(t => t.id === todoID)
         if (currentTodolist) {
             currentTodolist.title = title
@@ -141,12 +141,13 @@ function App() {
                     }
                     return <Grid item>
                         <Paper style={{padding:'10px'}}>
-                        <Todolist id={t.id} title={t.title} key={t.id} addNewTask={addNewTask} tasks={tasksForTodoList}
-                                     removeTask={removeTask}
-                                     setfilter={setFilter} changeStatus={changeStatus} filter={t.filter}
-                                     removeTodolist={removeTodolist} changeTitle={changeTitle} changeTitleTodo={changeTitleTodo}
+                    {/*    <Todolist id={t.id} title={t.title} key={t.id} addNewTask={addNewTask} tasks={tasksForTodoList}*/}
+                    {/*                 removeTask={removeTask}*/}
+                    {/*                 setfilter={setFilter} changeStatus={changeStatus} filter={t.filter}*/}
+                    {/*                 removeTodolist={removeTodolist} changeTitle={changeTitle}*/}
+                    {/*              // changeTitleTodo={changeTitleTodo}*/}
 
-                    />
+                    {/*/>*/}
                         </Paper>
                     </Grid>})}
                 </Grid>

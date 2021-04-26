@@ -21,14 +21,14 @@ export type ChangeStatusActionType = {
 }
 export type ChangeTitleActionType = {
     type: 'CHANGE-TITLE-TASKS',
-    id: string,
+    id: string|null,
     title: string,
     todolistId: string
 }
 
 export type ChangeTaskTitleActionType = {
     type: 'CHANGE-TODOLIST-TITLE',
-    id: string,
+    id: string|null,
     title: string
 }
 
@@ -47,7 +47,9 @@ type ActionType =
     | ChangeTitleActionType
     | AddTodolistActionType|RemoveTodolistActionType
 
-export const tasksReducer = (state: TasksStateType, action: ActionType) => {
+const initialState:TasksStateType={}
+
+export const tasksReducer = (state: TasksStateType=initialState, action: ActionType) => {
     switch (action.type) {
         case'REMOVE-TASKS':
             let currentTasks = state[action.todolistId]
@@ -78,7 +80,7 @@ export const tasksReducer = (state: TasksStateType, action: ActionType) => {
             return{...state}
 
         default:
-            throw new Error("I don't understand this type")
+          return state
     }
 }
 
@@ -92,7 +94,7 @@ export const addTaskAC = (title: string, todolistId: string): AddTaskActionType 
 export const changeTaskStatusAC = (id: string, status: boolean, todolistId: string): ChangeStatusActionType => {
     return {type: 'CHANGE-STATUS-TASKS', id, status, todolistId}
 }
-export const changeTaskTitleAC = (id: string, title: string, todolistId: string): ChangeTitleActionType => {
+export const changeTaskTitleAC = (id: string|null, title: string, todolistId: string): ChangeTitleActionType => {
     return {type: 'CHANGE-TITLE-TASKS', id, title, todolistId}
 }
 

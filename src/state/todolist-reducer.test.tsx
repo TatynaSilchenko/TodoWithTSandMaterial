@@ -1,16 +1,23 @@
 import {v1} from 'uuid';
 import {TasksStateType, TodolistType} from '../App';
 import {AddTodolistAc, ChangeTodolistTitleAc, RemoveTodolistAc, todolistReducer} from "./todolist-reducer";
-import {tasksReducer} from "./tasks-reducer";
 
-test('correct todolist should be removed', () => {
+let todolistId1:string;
+let todolistId2:string;
+let startState: Array<TodolistType> = [];
+
+beforeEach(()=>{
     let todolistId1 = v1();
     let todolistId2 = v1();
 
-    const startState: Array<TodolistType> = [
+    startState= [
         {id: todolistId1, title: "What to learn", filter: "all"},
         {id: todolistId2, title: "What to buy", filter: "all"}
     ]
+})
+
+
+test('correct todolist should be removed', () => {
 
     const endState = todolistReducer(startState, RemoveTodolistAc(todolistId1))
 
@@ -19,15 +26,8 @@ test('correct todolist should be removed', () => {
 });
 
 test('correct todolist should be added', () => {
-    let todolistId1 = v1();
-    let todolistId2 = v1();
 
     let newTodolistTitle = "New Todolist";
-
-    const startState: Array<TodolistType> = [
-        {id: todolistId1, title: "What to learn", filter: "all"},
-        {id: todolistId2, title: "What to buy", filter: "all"}
-    ]
 
     const endState: Array<TodolistType> = todolistReducer(startState, AddTodolistAc(newTodolistTitle))
 
@@ -36,15 +36,10 @@ test('correct todolist should be added', () => {
 });
 
 test('correct todolist should change its name', () => {
-    let todolistId1 = v1();
-    let todolistId2 = v1();
+
 
     let newTodolistTitle = "New Todolist";
 
-    const startState: Array<TodolistType> = [
-        {id: todolistId1, title: "What to learn", filter: "all"},
-        {id: todolistId2, title: "What to buy", filter: "all"}
-    ]
 
     const endState = todolistReducer(startState, ChangeTodolistTitleAc(todolistId2,newTodolistTitle));
 
