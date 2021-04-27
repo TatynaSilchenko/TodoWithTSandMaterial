@@ -8,7 +8,8 @@ interface AddItemFormProps {
 
 }
 
-export function AddItemForm(props: AddItemFormProps) {
+export const AddItemForm=React.memo(function(props: AddItemFormProps) {
+    console.log('AddItemForm called')
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
 
@@ -28,8 +29,10 @@ export function AddItemForm(props: AddItemFormProps) {
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter") {
+        if(error !==null){
             setError(null)
+        }
+        if (e.key === "Enter") {
             addItem()
         }
 
@@ -46,3 +49,4 @@ export function AddItemForm(props: AddItemFormProps) {
         </div>
     )
 }
+)

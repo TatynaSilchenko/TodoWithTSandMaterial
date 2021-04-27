@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useCallback, useState} from 'react';
 import './App.css';
 import {FilterValuesType, TasksStateType, TaskType} from "./App";
 import s from "./Todolist.module.css"
@@ -21,12 +21,22 @@ interface PropsType {
     changeTitleTodo:(id:string, title:string)=>void
 }
 
-function Todolist(props: PropsType) {
+const Todolist=React.memo(
+    function(props: PropsType) {
+    console.log("Todolist called")
 
-    const addTask = (title: string) => {
+        let tasksForTodoList = props.tasks;
+        if (props.filter === "active") {
+            tasksForTodoList = tasksForTodoList.filter(t => !t.isDone)
+        }
+        if (props.filter === "completed") {
+            tasksForTodoList = tasksForTodoList.filter(t => !!t.isDone)
+        }
+
+    const addTask = useCallback((title: string) => {
         props.addNewTask(title, props.id)
 
-    }
+    },[])
 
 
     const onAllClickHandler = () => {
@@ -82,6 +92,6 @@ function Todolist(props: PropsType) {
             </Button>
         </div>
     </div>
-}
+})
 
 export default Todolist;
