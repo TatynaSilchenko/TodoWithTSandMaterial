@@ -15,7 +15,8 @@ type EditModeType = {
     editMode: boolean
 }
 
-export function EditableSpan({title,id,todoID, ...restProps}: EditableSpanProps) {
+export const EditableSpan=React.memo(({title,id,todoID, ...restProps}: EditableSpanProps)=>{
+    console.log('editeSpan called')
 
     const [editMode, setEditMode] = useState(false)
     const [newTitle, setNewTitle] = useState(title)
@@ -41,4 +42,4 @@ restProps.onChangeTodo&&restProps.onChangeTodo(todoID,newTitle)
 
         </>
     )
-}
+})
