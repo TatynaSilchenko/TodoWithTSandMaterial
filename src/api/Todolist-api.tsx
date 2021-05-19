@@ -54,7 +54,7 @@ export const todolistAPI = {
     },
 
     getTodolist(){
-        const promise=instance.get('todo-lists')
+        const promise=instance.get<Array<TodolistType>>('todo-lists')
         return promise
     },
 
@@ -64,7 +64,7 @@ export const todolistAPI = {
     },
 
     deleteTodolist(todolistId:string){
-        const promise=instance.delete(`todo-lists/${todolistId}`)
+        const promise=instance.delete<ResponseType<{item:TodolistType}>>(`todo-lists/${todolistId}`)
         return promise
     }
 }
